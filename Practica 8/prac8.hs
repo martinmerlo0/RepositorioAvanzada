@@ -60,7 +60,7 @@ even' n xs = even (xs !! n) -- veo si el elemento en la posicion n es par
 --		Ejemplo: existe [0,1,2,3] [4,1,2,6] odd
 --		retorna True.
 -- ----------------------------------------------------
---existe :: [Int] -> [a] -> (Int -> [a] -> Bool)-> Bool
-
+existe :: [Int] -> [a] -> (Int -> [a] -> Bool)-> Bool
+existe xs ys f = or [f i ys | i <- xs]
 
 
