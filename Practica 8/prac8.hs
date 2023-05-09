@@ -25,31 +25,42 @@ maj True False True = True
 maj False True True = True 
 maj _ _ _ = False 
 
--- GITHUB
 
-{-3. En Haskell un predicado sobre un tipo A es una funcion p :: A −> Bool,
-por ejemplo:
-even : : I n t −> Bool
-even x = x ‘mod‘ 2 == 0
-Se puede pensar como un predicado sobre n ́umeros cuya variable libre es x.
-Adem ́as en Haskell tenemos las siguientes funciones que operan sobre listas de
-booleanos:
-and : : [ Bool ] −> Bool
-−− r e t o r n a True s i i t od o s l o s el em e n t o s son True
-o r : : [ Bool ] −> Bool
-−− r e t o r n a True s i i a l menos un elemen t o e s True
-Con estos dos operadores y listas por comprensi ́on podemos escribir una
-versi ́on ejecutable de los cuantificadores en Haskell. Por ejemplo el siguiente
-cuantificador:
+-- ---------------------------------------------------- 
+-- maj retorna True sii al menos 2 argumentos son True.
+-- ----------------------------------------------------
 
-(∀i : 0 ≤ i < ]xs : even xs.i)
 
-Puede escribirse literalmente como:
+-- ---------------------------------------------------- 
+-- Para las siguientes funciones se debe respetar el 
+-- perfil propuesto.
+-- La lista [Int] de paraTodo representa las posiciones 
+-- sobre las que cuantificamos en [a].
+-- Mientras que (Int -> [a] -> Bool) es la propiedad.
+--		Ejemplo: paraTodo [0,1,2,3] [4,1,2,6] even 
+--		retorna False, ya que existe una posición 
+--		en la que el elemento de la lista es impar. 
+--		paraTodo [0,2,4,6] [2,2,4,4,4,5,6] even  
+--		retorna True.
+-- ----------------------------------------------------
+paraTodo :: [Int] -> [a] -> (Int -> [a] -> Bool)-> Bool
+paraTodo xs ys f = and [f i ys | i <-xs]
 
-and [ even xs ! ! i | i <− [ 0 . . ( l e n g t h xs ) −1]]
-Pero en Haskell lo m ́as com ́un es escribirlo de la siguiente forma:
-and [ even x | x <− xs ]
-Utilizar estas ideas para escribir los siguientes cuantificadores:
-• (∃i : 0 ≤ i < ]xs : p xs.i)
-• (∀i : 0 ≤ i < ]xs : p xs.i)
-Para un predicado p dado.-}
+
+
+even' :: Int -> [Int] -> Bool
+even' n xs = even (xs !! n) -- veo si el elemento en la posicion n es par 
+
+
+-- ----------------------------------------------------
+-- La lista [Int] de paraTodo representa las posiciones 
+-- sobre las que cuantificamos en [a]. 
+-- (Int -> [a] -> Bool) es la propiedad.
+--
+--		Ejemplo: existe [0,1,2,3] [4,1,2,6] odd
+--		retorna True.
+-- ----------------------------------------------------
+--existe :: [Int] -> [a] -> (Int -> [a] -> Bool)-> Bool
+
+
+
