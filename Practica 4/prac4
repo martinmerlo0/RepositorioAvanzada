@@ -1,0 +1,396 @@
+• Orden Aplicativo: se reduce siempre la expresi ́on m ́as adentro y m ́as a la
+izquierda.
+• Orden Normal: se reduce siempre la expresi ́on ms afuera y m ́as a la
+izquierda.
+
+
+1. Muestra los pasos de reducci ́on hasta llegar a la forma normal de la expresi ́on:
+
+
+cuadrado : : Int −> Int
+cuadrado x = x ∗ x
+
+head : : [ a ] −> a
+head ( x : xs ) = x
+
+Evaluacion aplicativa 
+
+2 ∗ cuadrado.(head .[2,4,5,6,7,8])
+
+={Def de head}
+
+2 * cuadrado(2)
+
+={Def de cuadrado}
+
+2 * (2 * 2)
+
+={Aritmetica}
+
+2 * 4
+
+={Aritmetica}
+
+8
+
+
+Evaluacion Normal
+
+2 ∗ cuadrado.(head .[2,4,5,6,7,8])
+
+={Def de cuadrado}
+
+2 * head [2,4,5,6,7,8] * head [2,4,5,6,7,8]
+
+{Def de head}
+
+2 * 2 * head [2,4,5,6,7,8]
+
+={Aritmetica}
+
+4 * head [2,4,5,6,7,8]
+
+={Def de head}
+
+4 * 2
+
+={Aritmetica}
+
+8
+
+
+2. Dada la definici ́on: linf = 1 : linf . Resuelve los siguientes pasos para la
+expresi con head. linf :
+
+linf = 1 : linf
+
+• a) Muestre los pasos de reducci ́on utilizando el orden aplicativo.
+
+
+head.linf
+
+={Def de linf}
+
+head.(1 : linf)
+
+={Def de linf}
+
+head.(1 : 1 : linf)
+
+={Def de linf}
+
+head.(1 : 1 : 1 : linf)
+
+={Def de linf}......
+
+Y siempre se va quedar intentando reducir a la forma normal linf por lo tanto
+va quedar por decirlo asi de alguna forma un ciclo infinito que pararia cuando se agote la pila
+
+
+
+
+• b) Haga lo mismo pero siguiendo el orden de reducci ́on normal.
+
+
+head.linf
+
+={Def de head}
+
+1
+
+
+
+
+3. Dada la siguiente definici ́on:
+
+f : : Int −> Int −> Int
+f x 0 = x
+f x (n) = cuadrado ( f x n-1 )
+
+
+Resuelve los siguientes pasos para la expresi con f.2.3
+
+• a) Muestra los pasos de reducci ́on utilizando el orden aplicativo.
+
+f 2 3 
+
+={Def de f}
+
+cuadrado (f 2 2)
+
+={def de f}
+
+cuadrado(cuadrado (f 2 1))
+
+{Def de f}
+
+cuadrado(cuadrado(cuadrado(f 2 0)))
+
+{Def de f}
+
+cuadrado(cuadrado(cuadrado(2)))
+
+={def de cuadrado}
+
+cuadrado(cuadrado(2*2))
+
+={Aritmetica}
+
+cuadrado(cuadrado(4))
+
+={Def de cuadrado}
+
+cuadrado(4*4)
+
+={Aritmetica}
+
+cuadrado(16)
+
+{Def de cuadrado}
+
+16 * 16
+
+=256
+
+
+
+
+• b) Has lo mismo pero siguiendo el orden de reducci ́on normal.
+
+
+
+f 2 3 
+
+
+Compara dichos resultados.
+
+
+={Def de f}
+
+cuadrado(f 2 2)
+
+={def de cuadrado}
+
+f 2 2 * | f 2 2
+
+={def de f}
+
+cuadrado(f 2 1) * | f 2 2
+
+={Def de cuadrado}
+
+f 2 1 * f 2 1 * | f 2 2 
+
+={def de f}
+
+cuadrado(f 2 0) * f 2 1 * | f 2 2 
+
+={Def de cuadrado}
+
+f 2 0 * f 2 0 * f 2 1 * | f 2 2 
+
+={def de f}
+
+2 * f 2 0 * f 2 1 * | f 2 2 
+
+={def de f}
+
+2 * 2 * f 2 1 * | f 2 2 
+
+={Aritmetica}
+
+4 * f 2 1 * | f 2 2
+
+={Def de f}
+
+4 * cuadrado(f 2 0) * | f 2 2
+
+={Def de cuadrado}
+
+4 * f 2 0 * f 2 0 * | f 2 2 
+
+={Def de f}
+
+4 * 2 * f 2 0 * | f 2 2
+
+={Aritmetica}
+
+8 * f 2 0 * | f 2 2 
+
+={Def de f}
+
+8 * 2 * | f 2 2
+
+{aritmetica}
+
+16 * | f 2 2
+
+{Def de f}
+
+16 * cuadrado(f 2 1)
+
+{def de cuadrado}
+
+16 * f 2 1 * f 2 1
+
+{def de f}
+
+16 * cuadrado(f 2 0) * f 2 1
+
+{def de cuadrado}
+
+16 * f 2 0 * f 2 0 * f 2 1
+
+{def de f}
+
+16 * 2 * f 2 0 * f 2 1
+
+{aritmetica}
+
+32 * f 2 0 * f 2 1
+
+{def de f}
+
+32 * 2 * f 2 1
+
+{aritmetica}
+
+64 * f 2 1
+
+{def de f}
+
+64 * cuadrado(f 2 0)
+
+{def de cuadrado}
+
+64 * f 2 0 * f 2 0
+
+{def de f}
+
+64 * 2 * f 2 0
+
+{aritmetica}
+
+128 * f 2 0
+
+{def de f}
+
+128 * 2 = 256
+
+
+
+
+4. Utilizando orden aplicativo y normal, evalua la siguiente expresi ́on: square.inf
+Considerando las siguientes definiciones para square e inf:
+
+
+
+square.inf
+
+
+square :: Int −> Int
+square x = x ∗ x
+
+inf :: Int
+inf = inf + 1
+
+
+Orden aplicativo
+
+square.(inf)
+
+{def de inf}
+
+square.(inf + 1)
+
+{def de inf}
+
+square.((inf + 1) + 1)
+
+{def de inf}
+
+square.(((inf+1)+1)+1)
+
+
+
+Orden Normal
+
+
+square.(inf)
+
+{def de square}
+
+inf * inf
+
+{def de inf}
+
+inf + 1 * inf 
+
+
+
+5. Resuelve el ejercicio 3 utilizando orden de reducci ́on lazy.
+
+
+3. Dada la siguiente definici ́on:
+
+f : : Int −> Int −> Int
+f x 0 = x
+f x (n) = cuadrado ( f x n-1 )
+
+
+Resuelve los siguientes pasos para la expresi con f.2.3
+
+
+f.2.3
+
+{def de f}
+
+cuadrado(f 2 2)
+
+{def de cuadrado}
+
+x * x 
+
+[x = f 2 2]
+
+{def de f}
+
+x * x
+
+[x = cuadrado f 2 1 ]
+
+x * x 
+
+[x = y * y
+y = f 2 1]
+
+{def de f}
+
+x * x
+
+[x = y * y
+y = cuadrado f 2 0]
+
+{def de cuadrado}
+
+x * x 
+
+[x = y * y
+y = z * z
+z = f 2 0]
+
+{def de f}
+
+x * x 
+
+[x = y * y
+y = z * z
+z = 2]
+
+{volviendo para atras}
+
+16 * 16 = 256
+
+[x = 4 * 4 (16)
+y = 2 * 2 (4)
+z = 2]
