@@ -64,3 +64,16 @@ existe :: [Int] -> [a] -> (Int -> [a] -> Bool)-> Bool
 existe xs ys f = or [f i ys | i <- xs]
 
 
+
+
+sumatoria :: (Num a) => [a] -> a
+sumatoria xs = sum [x | x <- xs]
+
+
+productoria :: (Num a) => [a] -> a 
+productoria [] = 1
+productoria xs = product [x | x <- xs]
+
+
+contatoria :: [a] -> Int
+contatoria xs = sum [1 | x <- xs , f x]
