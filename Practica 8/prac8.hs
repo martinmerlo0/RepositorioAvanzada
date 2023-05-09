@@ -25,6 +25,7 @@ maj True False True = True
 maj False True True = True 
 maj _ _ _ = False 
 
+-- GITHUB
 
 {-3. En Haskell un predicado sobre un tipo A es una funcion p :: A −> Bool,
 por ejemplo:
