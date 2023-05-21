@@ -3,6 +3,8 @@
 initSeg :: [a] -> [[a]]
 initSeg xs = [as | (as,bs) <- split2 xs]
 
+finalSeg :: [a] -> [[a]]
+finalSeg xs = []:[cs | (as,bs,cs) <- split3 xs, length cs > 0]
 
 -- | Retorna todos los subsegmentos de una lista utilizando split3
 
@@ -34,5 +36,10 @@ de subsegmento de suma m ́axima.
 
 • f.xs.ys determina si ys es una subsecuencia de xs.-}
 
-f :: [a] -> [a] -> Bool
-f xs ys = ys == subSeg xs
+f :: (Eq a) =>[a] -> [a] -> Bool
+f xs ys = elem ys (subSeg xs)
+
+
+
+secFinal :: (Eq a) => [a] -> [a] -> Bool
+secFinal xs ys = elem ys (finalSeg xs)
