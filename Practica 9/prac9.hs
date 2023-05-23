@@ -43,3 +43,13 @@ f xs ys = elem ys (subSeg xs)
 
 secFinal :: (Eq a) => [a] -> [a] -> Bool
 secFinal xs ys = elem ys (finalSeg xs)
+
+
+
+{--
+La siguiente especificaci ́on: Dada una lista de n ́umeros, calcular el valor
+de subsegmento de suma maxima.-}
+
+
+sumaMaxima :: [Int] -> Int
+sumaMaxima xs = maximum [sum bs | (as,bs,cs) <- split3 xs, length bs > 0]
