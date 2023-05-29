@@ -87,3 +87,27 @@ q :: (Eq a) => [a] -> [a] -> Bool
 q [] ys = True
 q (x:xs) [] = False 
 q (x:xs) (y:ys) = (y == x) && q xs ys 
+
+
+---------------------------------
+
+f :: [Int] -> Int
+f [] = 0
+f (x:xs) = x + f xs
+
+
+g :: [Int] -> Int
+g [] = 0 
+g (x:xs) = 1 + g xs
+
+
+h :: [Int] -> (Int,Int)
+h [x] = (x,1)
+h (x:xs) = (x+a,1+b)
+    where (a,b) = h xs
+
+
+
+prom :: [Int] -> Int
+prom xs = a `div` b
+    where (a,b) = h xs
