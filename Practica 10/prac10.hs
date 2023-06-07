@@ -111,3 +111,15 @@ h (x:xs) = (x+a,1+b)
 prom :: [Int] -> Int
 prom xs = a `div` b
     where (a,b) = h xs
+
+
+
+
+fibo :: Int -> (Int,Int)
+fibo 0 = (0,1)
+fibo n = (b,a+b)
+    where (a,b) = fibo (n-1)
+
+
+fib :: Int -> Int
+fib n = fst (fibo n)
