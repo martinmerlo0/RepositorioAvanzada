@@ -123,3 +123,12 @@ fibo n = (b,a+b)
 
 fib :: Int -> Int
 fib n = fst (fibo n)
+
+
+sumaminima :: [Int] -> Int
+sumaminima [] = 0
+sumaminima (x:xs) = (x + aux xs) min sumaminima xs
+
+aux :: [Int] -> Int
+aux [] = 0
+aux (x:xs) = 0 min (x + aux xs)
