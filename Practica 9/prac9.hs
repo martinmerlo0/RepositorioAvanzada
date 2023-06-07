@@ -53,7 +53,3 @@ de subsegmento de suma maxima.-}
 
 sumaMaxima :: [Int] -> Int
 sumaMaxima xs = maximum [sum bs | (as,bs,cs) <- split3 xs, length bs > 0]
-
-
-
-dsadas
