@@ -49,12 +49,8 @@ evalEstado  (j, k)  | (k == 0) = if j == C then CPerdio else CGano
 -- 	En el caso mejorJug (H, k) tenemos que devolver la jugada que nos da el valor minimo (es decir, consideramos 
 -- 	la mejor jugada para H, que seria la peor para C).
 mejorJug :: Estado -> Int
-mejorJug (C, piedras) 
- | (piedras == 1) || (piedras == 3) || (piedras == 4) = piedras
- | otherwise = maximum (1:[j | j <- jugadas,j <= piedras, evalEstado (H, piedras - j) == CGano])
-mejorJug (H, piedras) 
- | (piedras == 1) || (piedras == 3) || (piedras == 4) = piedras
- | otherwise = minimum (4:[j | j <- jugadas,j <= piedras, evalEstado (C, piedras - j) == CPerdio])
+mejorJug (C, piedras) = maximum (1:[j | j <- jugadas,j <= piedras, evalEstado (H, piedras - j) == CGano || j == piedras]) 
+mejorJug (H, piedras) = minimum (4:[j | j <- jugadas,j <= piedras, evalEstado (C, piedras - j) == CPerdio || j == piedras])
 
 -- | Las siguientes funciones implementan una pequeña interface para poder jugar interactivamente,.
 jugar :: Estado -> IO()
