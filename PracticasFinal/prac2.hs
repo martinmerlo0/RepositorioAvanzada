@@ -12,12 +12,8 @@ edad (20,10,1968) (30,4,1987) = 18
 
 
 
-9 *. Defina una función que dado un número natural n, retorne la lista de todos
-los números naturales primos menores que n.10. Defina una función que dada una lista, retorne la reversa de la misma.
-11. Defina una función que dadas dos listas, decida si las listas son iguales.
-12 *. Defina una función que dada una lista decida si es un palı́ndromo o no.
-13. Defina una función que dados tres números a, b, c devuelva la cantidad de
-raı́ces reales de la ecuación ax2 + bx + c = 0-}
+
+-}
 
 
 
@@ -149,3 +145,59 @@ divisores n = [x | x <- [1..n], mod n x == 0]
 
 primo :: Int -> Bool
 primo x = (length (divisores x)) == 2
+
+
+
+{-9 *. Defina una función que dado un número natural n, retorne la lista de todos
+los números naturales primos menores que n.-}
+
+
+
+
+
+primosMenores :: Int -> [Int]
+primosMenores n = [x | x <- [1..n], primo x, x < n]
+
+
+
+{-10. Defina una función que dada una lista, retorne la reversa de la misma.-}
+
+
+reversa :: [a] -> [a]
+reversa [] = []
+reversa (x:xs) = reversa xs ++ [x]
+
+
+
+
+{-
+11. Defina una función que dadas dos listas, decida si las listas son iguales.-}
+
+
+
+iguales :: (Eq a) => [a] -> [a] -> Bool
+iguales [] [] = True
+iguales xs [] = False
+iguales [] ys = False 
+iguales (x:xs) (y:ys) = (x == y) && iguales xs ys 
+
+
+
+{-12 *. Defina una función que dada una lista decida si es un palı́ndromo o no.-}
+
+
+palindromo :: (Eq a)=> [a] -> Bool
+palindromo [] = True 
+palindromo xs = iguales xs (reversa xs)
+
+
+{-
+13. Defina una función que dados tres números a, b, c devuelva la cantidad de
+raı́ces reales de la ecuación ax2 + bx + c = 0-}
+
+
+cantRaices :: (Num a,Ord a) => a -> a -> a -> Int 
+cantRaices a b c | disc == 0 = 1
+           | disc > 0 = 2
+           | otherwise = 0
+           where disc = (b*b)-4*(a)*(c)
