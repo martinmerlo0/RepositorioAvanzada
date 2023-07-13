@@ -6,10 +6,7 @@
 7. Define la función que, dado un número natural, decida si el mismo es un
 cuadrado perfecto o no.
 
-
-
-11. Define la función compact, dada una lista retorna la lista sin los elementos
-repetidos consecutivos. Por ejemplo: compact [1, 3, 3, 5, 8, 3] = [1, 3, 5, 8, 3]-}
+-}
 
 
 
@@ -122,3 +119,18 @@ posicionesC :: String -> Char -> Int -> [Int]
 posicionesC [] _ _ = []
 posicionesC (x:xs) c n | x == c = n : posicionesC xs c (n + 1)
                        | otherwise = posicionesC xs c (n+1)
+
+
+
+{-
+
+11. Define la función compact, dada una lista retorna la lista sin los elementos
+repetidos consecutivos. Por ejemplo: compact [1, 3, 3, 5, 8, 3] = [1, 3, 5, 8, 3]-}
+
+
+
+compact :: (Eq a) => [a] -> [a]
+compact [] = []
+compact [x] = [x]
+compact (x:y:ys) | x == y = compact (y:ys)
+                 | otherwise = x : compact (y:ys)
